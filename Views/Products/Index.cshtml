@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Ecommerce_DBFirst.Models.Product>
+
+
+<h2>Product List</h2>
+
+<div class="mb-3">
+    <a asp-action="Create" class="btn btn-success">Add New Product</a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Product Id</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id="product-row-@item.Id">
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Price</td>
+                <td>
+                    <a asp-action="Details"
+                       asp-route-id="@item.Id"
+                       class="btn btn-sm btn-info">
+                        View Details
+                    </a>
+                    <a asp-action="Edit"
+                       asp-route-id="@item.Id"
+                       class="btn btn-sm btn-primary">
+                        Edit
+                    </a>
+                    <button onclick="deleteProduct(@item.Id)"
+                            class="btn btn-sm btn-danger">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        function deleteProduct(id) {
+            if (confirm('Are you sure you want to delete this product?')) {
+                fetch(`/Products/Delete/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Remove the row from the table
+                        const row = document.getElementById(`product-row-${id}`);
+                        row.remove();
+                        
+                        // Optional: Show success message
+                        alert(data.message);
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while deleting the product');
+                });
+            }
+        }
+    </script>
+}

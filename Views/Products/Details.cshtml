@@ -1,0 +1,38 @@
+﻿@model Ecommerce_DBFirst.Models.Product
+
+<h2>@Model?.Name</h2>
+
+<div class="card">
+    <div class="card-body">
+        <div class="mb-3">
+            <label class="form-label"><strong>Product ID:</strong></label>
+            <p>@Model?.Id</p>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label"><strong>Name:</strong></label>
+            <p>@Model?.Name</p>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label"><strong>Price:</strong></label>
+            <p>@Model?.Price</p>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label"><strong>Description:</strong></label>
+            <p>@Model?.Description</p>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label"><strong>Category:</strong></label>
+            <p>@Model?.Category?.Name</p>
+        </div>
+
+        <div>
+            <a asp-action="Index" class="btn btn-secondary">Back to Product List</a>
+        </div>
+    </div>
+</div>
+
+

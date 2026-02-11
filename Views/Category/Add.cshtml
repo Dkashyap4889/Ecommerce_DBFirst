@@ -1,0 +1,12 @@
+﻿@model Ecommerce_DBFirst.Models.Category
+
+<form asp-action="Add" method="post">
+    <div class="form-group mb-3">
+        <label asp-for="Name" class="form-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary">Add Category</button>
+    </div>
+</form>
